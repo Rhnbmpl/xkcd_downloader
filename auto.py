@@ -13,11 +13,11 @@ if(os.path.exists('%s/dont_touch.config'%(cwd))==False):
 	end='#'
 	print('Setting up crontab entry for updating comics at 10am and 2 pm everyday.....')
 	subprocess.run('crontab -l > mycron',shell=True)
-	subprocess.run('echo "00 10,14 * * * %s/auto.py > %s/prog.log 2>&1 " >> mycron'%(cwd,cwd),shell=True)
+	subprocess.run('echo "00 10,14 * * * %s/auto.py > %s/prog.log 2>&1 " >> mycron'%(cwd,cwd),shell=True)#Diverting all outputs to a log file when run from cron
 	subprocess.run('crontab mycron',shell=True)
 	subprocess.run('rm mycron',shell=True)
 	print('Do you want to update comics on startup?[y/n]')
-	if(str(input())=='y'):
+	if(str(input()).lower()=='y'):
 		subprocess.run('crontab -l > mycron',shell=True)
 		subprocess.run('echo "@reboot %s/auto.py > %s/prog.log 2>&1 " >> mycron'%(cwd,cwd),shell=True)
 		subprocess.run('crontab mycron',shell=True)
