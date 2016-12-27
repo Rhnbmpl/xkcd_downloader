@@ -5,7 +5,7 @@ No limit on number of threads used. Will try to use maximum bandwidth. Images ha
 end when all others have finished donloading.
 
 extra modules needed: requests , bs4
-Intstallation: sudo pip3 install <module_name>
+Intstallation: sudo pip3 install (module_name)
 
 -----------EDIT--------------
 
