@@ -13,7 +13,9 @@ Added auto.py which automates the downloading of the comics with putting entries
 auto.py has to be made executable and be owned by root in order for it to be added to cronjobs.
 
 $sudo chmod a+x auto.py
+
 $sudo chmod a+x xkcd_down_multi.py
+
 $./auto.py
 
 Thats it. Directory 'xkcd_multi' will be created where the comics will be stored(same directory as the 'auto.py' and
