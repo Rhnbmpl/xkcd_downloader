@@ -6,7 +6,7 @@ end when all others have finished donloading.
 
 extra modules needed(will be downloaded automatically on first run if you have pip3 or pip): requests , bs4
 
-Required dependancies will be checked and donloaded by auto.py on first run.
+Required dependancies(above mentioned modules) will be checked and donloaded by auto.py on first run.
 
 Added auto.py which automates the downloading of the comics with putting entries in crontab, update timings can be modified.
 auto.py has to be made executable and be owned by root in order for it to be added to cronjobs.
