@@ -1,3 +1,23 @@
+'''	XKCD_DOWNLOADER: Simple downloader to downloader all xkcd comics since the beginning of time and also automate 
+	the downloading at your defined time(edit the cron entry section).Cheers!
+
+    Copyright (C) 2017  Rohan Bampal
+    Contact me by mail at: rohanbampal@gmail.com
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program. It is located in the file 'LICENSES.txt'. If not, see <http://www.gnu.org/licenses/>.
+'''
+
 #!/usr/bin/python3
 import os
 import subprocess
@@ -13,6 +33,7 @@ if(os.path.exists('%s/dont_touch.config'%(cwd))==False):
 	conf=open('%s/dont_touch.config'%(cwd),'w')#w=only write;r=only read;r+=read and write
 	conf.close()
 	end='#'
+	print('XKCD_DOWNLOADER  Copyright (C) 2017  Rohan Bampal \nThis program comes with ABSOLUTELY NO WARRANTY.\n This is free software, and you are welcome to redistribute it \nunder certain conditions\n')
 	print('Checking and installing required dependencies. Please enter password.......')
 	subprocess.run('sudo pip3 install -r requirements.txt',shell=True)
 	print('Setting up crontab entry for updating comics at 10am and 2 pm everyday.....')
