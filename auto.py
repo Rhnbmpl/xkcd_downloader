@@ -1,6 +1,8 @@
 #!/usr/bin/python3
 import os
-import subprocess,time,datetime
+import subprocess
+import time
+import datetime
 end=''
 start_url=''
 cwd=os.path.dirname(os.path.realpath(__file__))#get path to the directory where the program is in
@@ -11,9 +13,11 @@ if(os.path.exists('%s/dont_touch.config'%(cwd))==False):
 	conf=open('%s/dont_touch.config'%(cwd),'w')#w=only write;r=only read;r+=read and write
 	conf.close()
 	end='#'
+	print('Checking and installing required dependencies. Please enter password.......')
+	subprocess.run('sudo pip3 install -r requirements.txt',shell=True)
 	print('Setting up crontab entry for updating comics at 10am and 2 pm everyday.....')
 	subprocess.run('crontab -l > mycron',shell=True)
-	subprocess.run('echo "00 10,14 * * * %s/auto.py > %s/prog.log 2>&1 " >> mycron'%(cwd,cwd),shell=True)#Diverting all outputs to a log file when run from cron
+	subprocess.run('echo "00 10,14 * * * %s/auto.py > %s/prog.log 2>&1 " >> mycron'%(cwd,cwd),shell=True)#Diverting all outputs to a log file when run from cron. Easy looking for errors. prog.log stores the last run time and action taken
 	subprocess.run('crontab mycron',shell=True)
 	subprocess.run('rm mycron',shell=True)
 	print('Do you want to update comics on startup?[y/n]')
