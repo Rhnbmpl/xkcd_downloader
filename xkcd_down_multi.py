@@ -1,6 +1,12 @@
 #!/usr/bin/python3
 import webbrowser as web
-import requests,bs4,os,sys,threading,time,subprocess
+import requests
+import bs4
+import os
+import sys
+import threading
+import time
+import subprocess
 def down(down_url,prev_addr,cwd):
 	try:
 			res=requests.get('http:'+down_url)
@@ -22,7 +28,7 @@ def main(end,start_url):
 	prev_addr=addr
 	prev_url=''
 	error=[]
-	while 1:
+	while True:
 		s=requests.Session()
 		pg=s.get(prev_addr)
 		try:
