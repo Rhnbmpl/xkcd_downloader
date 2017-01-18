@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 '''	XKCD_DOWNLOADER: Simple downloader to downloader all xkcd comics since the beginning of time and also automate 
 	the downloading at your defined time(edit the cron entry section).Cheers!
 
@@ -19,8 +20,6 @@
 
 '''
 
-
-#!/usr/bin/python3
 import webbrowser as web
 import requests
 import bs4
