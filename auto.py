@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 '''	XKCD_DOWNLOADER: Simple downloader to downloader all xkcd comics since the beginning of time and also automate 
 	the downloading at your defined time(edit the cron entry section).Cheers!
 
@@ -18,7 +19,6 @@
     along with this program. It is located in the file 'LICENSES.txt'. If not, see <http://www.gnu.org/licenses/>.
 '''
 
-#!/usr/bin/python3
 import os
 import subprocess
 import time
