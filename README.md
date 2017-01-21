@@ -13,8 +13,6 @@ auto.py has to be made executable and be owned by root in order for it to be add
 
 $ sudo chmod a+x auto.py
 
-$ sudo chmod a+x xkcd_down_multi.py
-
 $ ./auto.py
 
 Thats it. 
