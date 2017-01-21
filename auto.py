@@ -33,9 +33,16 @@ if(os.path.exists('%s/dont_touch.config'%(cwd))==False):
 	conf=open('%s/dont_touch.config'%(cwd),'w')#w=only write;r=only read;r+=read and write
 	conf.close()
 	end='#'
-	print('XKCD_DOWNLOADER  Copyright (C) 2017  Rohan Bampal \nThis program comes with ABSOLUTELY NO WARRANTY.\n This is free software, and you are welcome to redistribute it \nunder certain conditions\n')
+	print('   XKCD_DOWNLOADER  Copyright (C) 2017  Rohan Bampal \nThis program comes with ABSOLUTELY NO WARRANTY.\nThis is free software, and you are welcome to redistribute it \nunder certain conditions mentioned in the file LICENSES.txt\nRaise any issues at: https://github.com/Rhnbmpl/xkcd_downloader/issues \n')
 	print('Checking and installing required dependencies. Please enter password.......')
-	subprocess.run('sudo pip3 install -r requirements.txt',shell=True)
+	try:
+		subprocess.run('sudo pip3 install -r requirements.txt',shell=True)
+	except:
+		print("Error running pip3, make sure you have pip3 installed by: $ sudo apt-get install python3-pip")
+		raise SystemExit
+	print('Setting file xkcd_down_multi.py as executable.......')
+	subprocess.run('sudo chmod a+x xkcd_down_multi.py',shell=True)
+	print('---------------------------------------------------------------------------------------------')
 	print('Setting up crontab entry for updating comics at 10am and 2 pm everyday.....')
 	subprocess.run('crontab -l > mycron',shell=True)
 	subprocess.run('echo "00 10,14 * * * %s/auto.py > %s/prog.log 2>&1 " >> mycron'%(cwd,cwd),shell=True)#Diverting all outputs to a log file when run from cron. Easy looking for errors. prog.log stores the last run time and action taken
