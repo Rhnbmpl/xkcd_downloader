@@ -18,6 +18,8 @@ $ ./auto.py
 Thats it. 
 
 Directory 'xkcd_multi' will be created where the comics will be stored(same directory as the 'auto.py' and
-'xkcd_multi_down.py'. To view lastest, order by date modified.
+'xkcd_multi_down.py' by default otherwise when prompted on first run, you can enter the directory where the download 
+directory will be made and all comics will be downloaded there.
+To view lastest, order by date modified.
 'config.log' will be created in which 'auto.py'(running from cron) outputs to see when the 'auto.py' ran from the cron and 
 if it encountered any errors.
