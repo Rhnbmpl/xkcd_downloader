@@ -2,21 +2,29 @@
 '''	XKCD_DOWNLOADER: Simple downloader to downloader all xkcd comics since the beginning of time and also automate 
 	the downloading at your defined time(edit the cron entry section).Cheers!
 
-    Copyright (C) 2017  Rohan Bampal
-    Contact me by mail at: rohanbampal@gmail.com
+MIT License
 
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+Copyright (c) 2017 Rohan Bampal
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
-    You should have received a copy of the GNU General Public License
-    along with this program.It is located in the file 'LICENSES.txt'.  If not, see <http://www.gnu.org/licenses/>.
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+Please Raise any issues at: https://github.com/Rhnbmpl/xkcd_downloader/issues
 
 '''
 
@@ -32,6 +40,9 @@ def down(down_url,prev_addr,cwd):
 	try:
 			res=requests.get('http:'+down_url)
 			print('Downloading Image......%s'%('http:'+down_url))
+			if(os.path.exists('%s/xkcd_multi/'%(cwd)+os.path.basename(down_url))==True):
+				print(os.path.basename(down_url)+' already exists....... Skipping....')
+				return
 			imgfile=open('%s/xkcd_multi/'%(cwd)+os.path.basename(down_url),'wb')
 			for chunk in res.iter_content(100000):	#write in chunks of 100000 to prevent memory leaks
 				imgfile.write(chunk)
@@ -39,8 +50,7 @@ def down(down_url,prev_addr,cwd):
 	except:
 			print('Error downloading image : %s'%(prev_addr))
 			pass
-def main(end,start_url):
-	cwd=os.path.dirname(os.path.realpath(__file__))#get path to the directory where the program is in
+def main(end,start_url,cwd):	#cwd is the path to the Directory where xkcd_multi is located
 	fst=0
 	ret=['','']
 	downthr_lst=[]
@@ -68,7 +78,7 @@ def main(end,start_url):
 			else:
 				print('Error feteching page : %s'%(exc))
 				error.append(prev_addr)
-		file=open('%s/xkcd.txt'%(cwd),'wb')
+		file=open('%s/xkcd_multi/xkcd.txt'%(cwd),'wb')
 		for chunk in pg.iter_content(100000):
 			file.write(chunk)
 		soup=bs4.BeautifulSoup(pg.text,'lxml')
@@ -80,7 +90,7 @@ def main(end,start_url):
 			down_url=img[0].get('src')
 
 			if(down_url==start_url and fst==0):
-				print(start_url+" ....Exists, no new comics :'( ....")
+				print(start_url+" ....Exists, no new comics :'(")
 				ret=['nope','nope']
 				return ret
 			elif(fst==0):
