@@ -67,14 +67,14 @@ if(os.path.exists('%s/dont_touch.config'%(cwd))==False):
 		subprocess.run('rm mycron',shell=True)
 	else:
 		pass
-	print('Download in different directory?[y/n] If No, then it will be downlaoded in this directory')
+	print('\n\nDownload in different directory?[y/n] If No, then it will be downlaoded in this directory')
 	if(str(input()).lower()=='y'):
-		print("Enter the full path of the directory to download the comics to")
+		print("Enter the full path of the directory to download the comics to: ")
 		path=str(input())		#Download directory is in the same directory as the program
 	else:
 		path=cwd
-	if(os.path.exists('%s/xkcd_multi'%(path))==False):
-		os.makedirs('%s/xkcd_multi'%(path),exist_ok=True)
+	if(os.path.exists('%s/Downloads_xkcd'%(path))==False):
+		os.makedirs('%s/Downloads_xkcd'%(path),exist_ok=True)
 else:
 	conf=open('%s/dont_touch.config'%(cwd),'r')
 	line=(conf.readline()).split()
@@ -97,7 +97,7 @@ else:
 	conf.write(end+' '+start_url+' '+tym+' '+path)
 	conf.close()
 	print("----Updated till: %s ----- \n----On Last run: %s -----"%(end,tym))
-subprocess.run('rm %s/xkcd_multi/xkcd.txt'%(path),shell=True)
+subprocess.run('rm %s/Downloads_xkcd/xkcd.txt'%(path),shell=True)
 #print(cwd)
 
 

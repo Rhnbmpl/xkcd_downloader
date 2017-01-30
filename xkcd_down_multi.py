@@ -40,17 +40,17 @@ def down(down_url,prev_addr,cwd):
 	try:
 			res=requests.get('http:'+down_url)
 			print('Downloading Image......%s'%('http:'+down_url))
-			if(os.path.exists('%s/xkcd_multi/'%(cwd)+os.path.basename(down_url))==True):
+			if(os.path.exists('%s/Downloads_xkcd/'%(cwd)+os.path.basename(down_url))==True):
 				print(os.path.basename(down_url)+' already exists....... Skipping....')
 				return
-			imgfile=open('%s/xkcd_multi/'%(cwd)+os.path.basename(down_url),'wb')
+			imgfile=open('%s/Downloads_xkcd/'%(cwd)+os.path.basename(down_url),'wb')
 			for chunk in res.iter_content(100000):	#write in chunks of 100000 to prevent memory leaks
 				imgfile.write(chunk)
 			imgfile.close()
 	except:
 			print('Error downloading image : %s'%(prev_addr))
 			pass
-def main(end,start_url,cwd):	#cwd is the path to the Directory where xkcd_multi is located
+def main(end,start_url,cwd):	#cwd is the path to the Directory where Downloads_xkcd is located
 	fst=0
 	ret=['','']
 	downthr_lst=[]
@@ -78,7 +78,7 @@ def main(end,start_url,cwd):	#cwd is the path to the Directory where xkcd_multi 
 			else:
 				print('Error feteching page : %s'%(exc))
 				error.append(prev_addr)
-		file=open('%s/xkcd_multi/xkcd.txt'%(cwd),'wb')
+		file=open('%s/Downloads_xkcd/xkcd.txt'%(cwd),'wb')
 		for chunk in pg.iter_content(100000):
 			file.write(chunk)
 		soup=bs4.BeautifulSoup(pg.text,'lxml')
