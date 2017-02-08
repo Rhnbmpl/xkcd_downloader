@@ -34,7 +34,7 @@ import time
 import datetime
 end=''
 start_url=''
-path=''		# This contains the path of the Downlaod diretory('xkcd_multi')
+path=''		# This contains the path of the Downlaod diretory('Downloads_xkcd')
 cwd=os.path.dirname(os.path.realpath(__file__))		#get path to the directory where the program is in
 tym=datetime.datetime.now().strftime('%H:%M:%S %d-%B-%Y')
 print("---------LOG AT: %s --------"%(tym))		# all print statements and error recorded in prog.log file
@@ -53,9 +53,14 @@ if(os.path.exists('%s/dont_touch.config'%(cwd))==False):
 		raise SystemExit
 	print('Setting file xkcd_down_multi.py as executable.......')
 	subprocess.run('sudo chmod a+x xkcd_down_multi.py',shell=True)
-	print('---------------------------------------------------------------------------------------------')
+	print('\n\n--------------------------SETTING UP ENTRIES IN CRONTAB--------------------------')
 	print('Setting up crontab entry for updating comics at 10am and 2 pm everyday.....')
+	'''print('Enter the time of day to check for new comics(time in 24-hour format seperated by comma)(e.g. 10am and 2pm=> 10,14) : ')
+	time=str(input())'''
 	subprocess.run('crontab -l > mycron',shell=True)
+	# crontab format: <min> <hr> <date-of-mnth> <mnth> <day-of-week> [command]
+	# Value range:    0-59  0-23   1-31/30/28    1-12       1-7      path of program to run   ##Seperate multiple value of same field by comma
+	# using astrix '*' means all values of the field. In month if * is used means for all months. If all fields '*',then all the time forever until poweroff
 	subprocess.run('echo "00 10,14 * * * %s/auto.py > %s/prog.log 2>&1 " >> mycron'%(cwd,cwd),shell=True)		#Diverting all outputs to a log file when run from cron. Easy looking for errors. prog.log stores the last run time and action taken
 	subprocess.run('crontab mycron',shell=True)
 	subprocess.run('rm mycron',shell=True)
@@ -67,12 +72,13 @@ if(os.path.exists('%s/dont_touch.config'%(cwd))==False):
 		subprocess.run('rm mycron',shell=True)
 	else:
 		pass
-	print('\n\nDownload in different directory?[y/n] If No, then it will be downlaoded in this directory')
+	print('\n\n--------------------SETTING UP LOCATION OF DONWLOAD DIRECTORY--------------------')
+	print('Define a downlaod directory?[y/n] If No, then it will be downlaoded in this directory by default')
 	if(str(input()).lower()=='y'):
-		print("Enter the full path of the directory to download the comics to: ")
-		path=str(input())		#Download directory is in the same directory as the program
+		print("Enter the full path of the directory to download the comics to(download directory will be created as 'Downloads_xkcd' in the entered directory) : ")
+		path=str(input())		
 	else:
-		path=cwd
+		path=cwd		#Download directory is in the same directory as the program
 	if(os.path.exists('%s/Downloads_xkcd'%(path))==False):
 		os.makedirs('%s/Downloads_xkcd'%(path),exist_ok=True)
 else:
@@ -90,17 +96,10 @@ import xkcd_down_multi as downl
 end,start_url=downl.main(end,start_url,path)
 
 if(end=='nope'):
-	print('----Already updated to latest----')
-
+	print('\n---------Already updated to latest---------')
 else:
 	conf=open('%s/dont_touch.config'%(cwd),'w')#w=only write;r=only read;r+=read and write
 	conf.write(end+' '+start_url+' '+tym+' '+path)
 	conf.close()
-	print("----Updated till: %s ----- \n----On Last run: %s -----"%(end,tym))
+	print("\n-------Updated till: %s -------- \n-------On Last run: %s --------"%(end,tym))
 subprocess.run('rm %s/Downloads_xkcd/xkcd.txt'%(path),shell=True)
-#print(cwd)
-
-
-
-
-# crontab format: min hr date-of-mnth mnth day-of-wk [command]
